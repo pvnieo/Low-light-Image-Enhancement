@@ -19,7 +19,7 @@ class ExposureCorrector:
         self.kernel = np.zeros((15, 15))
         for i in range(15):
             for j in range(15):
-                self.kernel[i, j] = np.exp(-0.5 * distance.euclidean((i, j), (7, 7)) / (sigma ** 2))
+                self.kernel[i, j] = np.exp(-0.5 * (distance.euclidean((i, j), (7, 7)) ** 2) / (sigma ** 2))
 
     def get_smoothness_weights(self, L, x):
         # returns the smoothness weights according to the direction x
@@ -130,6 +130,9 @@ class ExposureCorrector:
         return im * (V == 0) + im_enhanced * (V == 1) + inv_im_enhanced * (V == 2)
 
     def correct(self, im, gamma=0.8, lambda_=1, lime=False):
+        # TODO: resize image if too large, optimization take too much time
+        # TODO: add sigma to hyperparameters
+
         # correct exposure used the selected method (DUAL or LIME)
         # takes as an input a 8bit encoded image
         im_normalized = im.astype(float) / 255.
@@ -146,6 +149,6 @@ class ExposureCorrector:
             im_corrected = im_enhanced
 
         # convert to 8 bits
-        im_corrected = (im_corrected * 255).astype("uint8")
+        im_corrected = (np.clip(im_corrected, 0, 1) * 255).astype("uint8")
 
         return im_corrected
