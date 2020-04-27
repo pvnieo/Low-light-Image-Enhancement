@@ -8,7 +8,7 @@ Both methods are based on retinex modelling, and aim at estimating the illuminat
 The code implemented in this repository allows the use of both methods, which can be easily selected from the script parameters.
 
 ## Installation
-This implementation runs on python >= 3.6, use pip to install dependencies:
+This implementation runs on python >= 3.7, use pip to install dependencies:
 ```
 pip3 install -r requirements.txt
 ```

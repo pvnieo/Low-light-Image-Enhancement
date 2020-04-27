@@ -31,7 +31,7 @@ def main(args):
         filename = basename(files[i])
         name, ext = splitext(filename)
         method = "LIME" if args.lime else "DUAL"
-        corrected_name = f"{name}_{method}_g{args.gamma}_l{args.lambda_}.{ext}"
+        corrected_name = f"{name}_{method}_g{args.gamma}_l{args.lambda_}{ext}"
         cv2.imwrite(join(directory, corrected_name), enhanced_image)
 
 

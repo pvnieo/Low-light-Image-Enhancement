@@ -6,7 +6,7 @@ from scipy.ndimage.filters import convolve
 from scipy.sparse import diags, csr_matrix
 from scipy.sparse.linalg import spsolve
 # project
-from utils import psf2otf, get_sparse_neighbor
+from utils import get_sparse_neighbor
 
 
 def create_spacial_affinity_kernel(spatial_sigma: float, size: int = 15):
@@ -70,48 +70,6 @@ def fuse_multi_exposure_images(im: np.ndarray, under_ex: np.ndarray, over_ex: np
     images = [np.clip(x * 255, 0, 255).astype("uint8") for x in [im, under_ex, over_ex]]
     fused_images = merge_mertens.process(images)
     return fused_images
-
-
-def refine_illumination_map_fft(L: np.ndarray, gamma: float, lambda_: float, kernel: np.ndarray, eps: float = 1e-3):
-    """Refine the illumination map based on the optimization problem described in the two papers.
-       This function use the solver based on the closed form formula in the fourier domain.
-
-    Arguments:
-        L {np.ndarray} -- the illumination map to be refined.
-        gamma {float} -- gamma correction factor.
-        lambda_ {float} -- coefficient to balance the terms in the optimization problem.
-        kernel {np.ndarray} -- spatial affinity matrix.
-
-    Keyword Arguments:
-        eps {float} -- small constant to avoid computation instability (default: {1e-3}).
-
-    Returns:
-        np.ndarray -- refined illumination map. same shape as `L`.
-    """
-    # compute smoothness weights
-    wx = compute_smoothness_weights(L, x=1, kernel=kernel, eps=eps)
-    wy = compute_smoothness_weights(L, x=0, kernel=kernel, eps=eps)
-
-    # compute fft for forward and backward derivative operator
-    size_2D = L.shape
-    fx = np.int32([[1, -1]])
-    fy = np.int32([[1], [-1]])
-    otfFx = psf2otf(fx, size_2D)
-    otfFy = psf2otf(fy, size_2D)
-
-    # solve the optimization problem in fourier domain
-    FL = np.fft.fft2(L)
-    MTF = np.power(np.abs(otfFx), 2) * wx + np.power(np.abs(otfFy), 2) * wy
-    denominator = 1 + lambda_ * MTF
-    FS = FL / denominator
-
-    # get refined illumination map
-    L_refined = np.float32((np.fft.ifft2(FS)).real)
-
-    # gamma correction
-    L_refined = np.clip(L_refined, eps, 1) ** gamma
-
-    return L_refined
 
 
 def refine_illumination_map_linear(L: np.ndarray, gamma: float, lambda_: float, kernel: np.ndarray, eps: float = 1e-3):
