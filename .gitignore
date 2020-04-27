@@ -131,6 +131,7 @@ dmypy.json
 
 # demo folder
 /demo/enhanced/*
+exposure_corrector (copy).py
 
 # notebooks
 *.ipynb

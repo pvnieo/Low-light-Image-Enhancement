@@ -14,9 +14,10 @@ pip3 install -r requirements.txt
 ```
 
 ## Usage
-Use the `enhance.py` script to enhance your images.
+Use the `demo.py` script to enhance your images.
 ```
-usage: enhance.py [-h] [-f FOLDER] [-g GAMMA] [-l LAMBDA_] [-ul]
+usage: demo.py [-h] [-f FOLDER] [-g GAMMA] [-l LAMBDA_] [-ul] [-s SIGMA]
+               [-bc BC] [-bs BS] [-be BE] [-eps EPS]
 
 Python implementation of two low-light image enhancement techniques via illumination map estimation.
 
@@ -29,9 +30,15 @@ optional arguments:
   -l LAMBDA_, --lambda_ LAMBDA_
                         the weight for balancing the two terms in the illumination refinement optimization objective.
   -ul, --lime           Use the LIME method. By default, the DUAL method is used.
+  -s SIGMA, --sigma SIGMA
+                        Spatial standard deviation for spatial affinity based Gaussian weights.
+  -bc BC                parameter for controlling the influence of Mertens's contrast measure.
+  -bs BS                parameter for controlling the influence of Mertens's saturation measure.
+  -be BE                parameter for controlling the influence of Mertens's well exposedness measure.
+  -eps EPS              constant to avoid computation instability.
 ```
 
 ### Example
 ```
-python3 enhance.py -f ./demo/
+python3 demo.py -f ./demo/ -l 0.15 -g 0.6
 ```
