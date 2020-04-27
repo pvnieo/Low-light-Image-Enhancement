@@ -42,3 +42,6 @@ optional arguments:
 ```
 python3 demo.py -f ./demo/ -l 0.15 -g 0.6
 ```
+
+### TODO
+ - Add a fourier based solver to speed up the inference
