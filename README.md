@@ -49,4 +49,4 @@ Low Light Image             |  Enhanced Image
 ![](demo/2.bmp)  |  ![](demo/enhanced/2_DUAL_g0.6_l0.15.bmp)
 
 ### TODO
- - Add a fourier based solver to speed up the inference
+ - [ ] Add a fourier based solver to speed up the inference
