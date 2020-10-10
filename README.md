@@ -1,7 +1,7 @@
 # Low-light-Image-Enhancement
 Python implementation of two low-light image enhancement techniques via illumination map estimation, based on the following papers:
  * Dual Illumination Estimation for Robust Exposure Correction [[link](https://arxiv.org/pdf/1910.13688.pdf)]
- * LIME: Low-light Image Enhancement via Illumination Map Estimation [[link](http://www.dabi.temple.edu/~hbling/publication/LIME-tip.pdf)]
+ * LIME: Low-light Image Enhancement via Illumination Map Estimation [[link](https://ieeexplore.ieee.org/document/7782813)]
 
 Both methods are based on retinex modelling, and aim at estimating the illumination map by preserving the prominent structure of the image, while removing the redundant texture details. To do this, the same optimization formulation is used by both papers (see references). The novelty introduced by the first paper (called DUAL below) compared to the second (called LIME below) is the estimation of this map for the original image, and for its inverted version, which allows to correct both the under-exposed and over-exposed parts of the image.
 
