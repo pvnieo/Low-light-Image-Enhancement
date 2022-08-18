@@ -50,3 +50,18 @@ Low Light Image             |  Enhanced Image
 
 ### TODO
  - [ ] Add a fourier based solver to speed up the inference
+ 
+ 
+### :mortar_board: Citation
+If you find this work useful in your research, please consider citing:
+```
+@misc{lowlightpython,
+  author = {Souhaib Attaiki},
+  title = {Low light Image Enhancement},
+  year = {2020},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/pvnieo/Low-light-Image-Enhancement}},
+}
+
+```
